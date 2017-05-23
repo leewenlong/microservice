@@ -29,6 +29,7 @@ public class UserController {
 
     @RequestMapping(method= RequestMethod.GET,path = "/user/{id}")
     public String user(@PathVariable String id){
+        System.out.println("this is a user result id = "+ id);
         return "this is a user result id = "+ id;
     }
 
