@@ -1,0 +1,41 @@
+version: "2"
+services:
+  db:
+    image: mysql:5.6
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=microservice
+    ports:
+      - "3306:3306"
+  discovery1:
+    image: microservice/discovery-eureka:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+    environment:
+      - spring.profiles.active=default
+  discovery2:
+    image: microservice/discovery-eureka:0.0.1-SNAPSHOT
+    ports:
+      - "8762:8762"
+    environment:
+      - spring.profiles.active=dev
+  config-server:
+    image: microservice/config-server:0.0.1-SNAPSHOT
+    ports:
+      - "8888:8888"
+  gateway:
+    image: microservice/gateway-zuul:0.0.1-SNAPSHOT
+    ports:
+      - "5555:5555"
+  user:
+    image: microservice/provider-user:0.0.1-SNAPSHOT
+    links:
+      - db
+    ports:
+      - "2222:2222"
+  loadbalancer:
+      image: microservice/loadbalancer-ribbon:0.0.1-SNAPSHOT
+      ports:
+        - "3333:3333"

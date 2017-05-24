@@ -16,7 +16,10 @@
 
 	<modules>
 		<module>config-server</module>
-
+		<module>discovery-eureka</module>
+		<module>gateway-zuul</module>
+		<module>loadbalancer-ribbon</module>
+		<module>provider-user</module>
 	</modules>
 
 	<properties>
@@ -51,6 +54,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.4.13</version>
+				<configuration>
+					<skipDockerBuild>true</skipDockerBuild>
+				</configuration>
 
 			</plugin>
 		</plugins>

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RefreshScope
 public class UserController {
-    @Value("${load}")
+//    @Value("${load}")
     private String load;
 
     @Autowired
