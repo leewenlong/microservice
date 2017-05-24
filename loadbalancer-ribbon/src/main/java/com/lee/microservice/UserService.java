@@ -29,4 +29,19 @@ public class UserService {
         return "error========="+id;
     }
 
+    @HystrixCommand(fallbackMethod = "getByIdError")
+    public User getById(@PathVariable String id) {
+        return restTemplate.getForEntity("http://provider-user/users/"+id, User.class).getBody();
+    }
+
+
+    public User getByIdError(@PathVariable String id) {
+
+        User user = new User();
+        user.setAge(-1);
+        user.setId("-1");
+        user.setName("error");
+        return user;
+    }
+
 }

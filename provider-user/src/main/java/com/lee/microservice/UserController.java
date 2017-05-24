@@ -21,25 +21,40 @@ public class UserController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+    @Autowired
+    private UserService service;
+    @Autowired
+    private UserDao dao;
 
-    @RequestMapping(method= RequestMethod.GET,path = "/")
-    public String home(){
+    @RequestMapping(method = RequestMethod.GET, path = "/")
+    public String home() {
         return "hello spring boot";
     }
 
-    @RequestMapping(method= RequestMethod.GET,path = "/user/{id}")
-    public String user(@PathVariable String id){
-        System.out.println("this is a user result id = "+ id);
-        return "this is a user result id = "+ id;
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{id}")
+    public String user(@PathVariable String id) {
+        System.out.println("this is a user result id = " + id);
+        return "this is a user result id = " + id;
     }
 
-    @RequestMapping(method= RequestMethod.GET,path = "/load")
-    public String load(){
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{id}")
+
+    public User getById(@PathVariable String id) {
+
+        User user = dao.getById(id);
+
+        return user;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/load")
+    public String load() {
         return load;
     }
+
     @GetMapping("/instance-info")
     public ServiceInstance showInfo() {
         ServiceInstance localServiceInstance = this.discoveryClient.getLocalServiceInstance();
         return localServiceInstance;
     }
+
 }
